@@ -4,11 +4,12 @@ const ref = {
     gallery: document.querySelector('.js-gallery'),
     largeImage: document.querySelector('.lightbox__image'),
     lightBox: document.querySelector('.lightbox'),
-    clotheButton: document.querySelector('.lightbox__button')
+    closeButton: document.querySelector('.lightbox__button')
 
 };
 
 //Создание и рендер разметки по массиву данных и предоставленному шаблону
+
 
 const addgalleryItems = galleryItems.map(({ preview, original, description }) => {
     const galleryItem = document.createElement('li');
@@ -50,6 +51,7 @@ const onGalleryClick = function (event) {
 
 
     setLargeImageURL(largeImageURL);
+    
 
     // Открытие модального окна по клику на элементе галереи
 
@@ -58,5 +60,20 @@ const onGalleryClick = function (event) {
 };
 
 ref.gallery.addEventListener('click', onGalleryClick);
+
+//Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"]
+
+const closeModal = function (event) {
+    ref.lightBox.classList.remove('is-open');
+
+    //Очистка значения атрибута src элемента img.lightbox__image
+    ref.largeImage.src = '';
+    console.log(ref.largeImage.src);
+    
+
+};
+
+ref.closeButton.addEventListener('click', closeModal);
+
 
 
