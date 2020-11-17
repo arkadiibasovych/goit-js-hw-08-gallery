@@ -9,10 +9,10 @@ const ref = {
 
 };
 
+
 //Создание и рендер разметки по массиву данных и предоставленному шаблону
 
-
-const addgalleryItems = galleryItems.map(({ preview, original, description }) => {
+const addgalleryItems = galleryItems.map(({ preview, original, description }, index) => {
     const galleryItem = document.createElement('li');
     galleryItem.setAttribute('class', 'gallery__item');
 
@@ -25,6 +25,8 @@ const addgalleryItems = galleryItems.map(({ preview, original, description }) =>
     galleryImage.setAttribute('src', preview);
     galleryImage.setAttribute('data-source', original);
     galleryImage.setAttribute('alt', description);
+    galleryImage.setAttribute('data-index', index);
+
 
     galleryLink.appendChild(galleryImage);
     galleryItem.appendChild(galleryLink);
@@ -32,24 +34,52 @@ const addgalleryItems = galleryItems.map(({ preview, original, description }) =>
     ref.gallery.appendChild(galleryItem);
 });
 
-// Реализация делегирования на галерее ul.js-gallery и получение url большого изображения
-
+console.log(ref.gallery);
 
 const setLargeImageURL = (url) => ref.largeImage.src = url;
+
+//Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"]
+
+const closeModal = function () {
+    window.removeEventListener('keydown', onPressEscape);
+    window.removeEventListener('keydown', onPressArray);
+
+    ref.lightBox.classList.remove('is-open');
+
+    //Очистка значения атрибута src элемента img.lightbox__image
+    ref.largeImage.src = '';
+
+};
+
+// const largeImageArray = document.querySelectorAll('[data-index]');
+
+const onPressEscape = function (event) {
+    if (event.code === 'Escape') {
+        closeModal();
+    }
+};
+
+const onPressArray = function (event) {
+if (event.code === 'ArrowLeft') {
+         console.log('Left!');
+           
+        };
+
+        if (event.code === 'ArrowRight') {
+            console.log('Right!');
+        };
+
+};
 
 const openModal = function () {
 
     ref.lightBox.classList.add('is-open'); 
 
-    //Закрытие модального окна по нажатию клавиши ESC
+//Закрытие модального окна по нажатию клавиши ESC
+    window.addEventListener('keydown', onPressEscape);
 
-    window.addEventListener('keydown', event => {
-        if (event.code === 'Escape') {
-            ref.lightBox.classList.remove('is-open');
-            ref.largeImage.src = '';
-        }
-    } )
-
+//Переключатель больших изображений
+    window.addEventListener('keydown', onPressArray);
     
 };
 
@@ -78,15 +108,7 @@ const onGalleryClick = function (event) {
 
 ref.gallery.addEventListener('click', onGalleryClick);
 
-//Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"]
 
-const closeModal = function () {
-    ref.lightBox.classList.remove('is-open');
-
-    //Очистка значения атрибута src элемента img.lightbox__image
-    ref.largeImage.src = '';
-
-};
 
 ref.closeButton.addEventListener('click', closeModal);
 
@@ -99,6 +121,10 @@ const overlayCloseMoadal = function (event) {
 };
 
 ref.overlay.addEventListener('click', overlayCloseMoadal);
+
+
+
+
 
 
 
