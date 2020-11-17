@@ -37,6 +37,22 @@ const addgalleryItems = galleryItems.map(({ preview, original, description }) =>
 
 const setLargeImageURL = (url) => ref.largeImage.src = url;
 
+const openModal = function () {
+
+    ref.lightBox.classList.add('is-open'); 
+
+    //Закрытие модального окна по нажатию клавиши ESC
+
+    window.addEventListener('keydown', event => {
+        if (event.code === 'Escape') {
+            ref.lightBox.classList.remove('is-open');
+            ref.largeImage.src = '';
+        }
+    } )
+
+    
+};
+
 const onGalleryClick = function (event) {
     event.preventDefault();
 
@@ -56,7 +72,7 @@ const onGalleryClick = function (event) {
 
     // Открытие модального окна по клику на элементе галереи
 
-    ref.lightBox.classList.add('is-open');
+    openModal();
 
 };
 
@@ -69,8 +85,6 @@ const closeModal = function () {
 
     //Очистка значения атрибута src элемента img.lightbox__image
     ref.largeImage.src = '';
-    console.log(ref.largeImage.src);
-    
 
 };
 
@@ -80,8 +94,7 @@ ref.closeButton.addEventListener('click', closeModal);
 
 const overlayCloseMoadal = function (event) {
     if (event.target === event.currentTarget) {
-        ref.lightBox.classList.remove('is-open');
-        ref.largeImage.src = '';
+        closeModal();
     }
 };
 
