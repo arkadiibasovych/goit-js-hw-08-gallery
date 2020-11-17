@@ -4,7 +4,8 @@ const ref = {
     gallery: document.querySelector('.js-gallery'),
     largeImage: document.querySelector('.lightbox__image'),
     lightBox: document.querySelector('.lightbox'),
-    closeButton: document.querySelector('.lightbox__button')
+    closeButton: document.querySelector('.lightbox__button'),
+    overlay: document.querySelector('.lightbox__overlay')
 
 };
 
@@ -63,7 +64,7 @@ ref.gallery.addEventListener('click', onGalleryClick);
 
 //Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"]
 
-const closeModal = function (event) {
+const closeModal = function () {
     ref.lightBox.classList.remove('is-open');
 
     //Очистка значения атрибута src элемента img.lightbox__image
@@ -74,6 +75,17 @@ const closeModal = function (event) {
 };
 
 ref.closeButton.addEventListener('click', closeModal);
+
+// Закрытие модального окна по клику на div.lightbox__overlay
+
+const overlayCloseMoadal = function (event) {
+    if (event.target === event.currentTarget) {
+        ref.lightBox.classList.remove('is-open');
+        ref.largeImage.src = '';
+    }
+};
+
+ref.overlay.addEventListener('click', overlayCloseMoadal);
 
 
 
