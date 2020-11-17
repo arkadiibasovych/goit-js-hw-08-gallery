@@ -2,6 +2,7 @@ import galleryItems from "./gallery-items.js";
 
 const ref = {
     gallery: document.querySelector('.js-gallery'),
+    largeImage: document.querySelector('.lightbox__image')
 
 };
 
@@ -27,8 +28,25 @@ const addgalleryItems = galleryItems.map(({ preview, original, description }) =>
     ref.gallery.appendChild(galleryItem);
 });
 
+// Реализация делегирования на галерее ul.js-gallery и получение url большого изображения
 
 
+const setLargeImageURL = (url) => ref.largeImage.src = url;
 
+const onGalleryClick = function (event) {
+    event.preventDefault();
 
-і
+    const imageRef = event.target;
+
+    if (imageRef.nodeName !== 'IMG') {
+        return;
+    }
+
+    const largeImageURL = imageRef.dataset.source;
+
+    setLargeImageURL(largeImageURL);
+
+};
+
+ref.gallery.addEventListener('click', onGalleryClick);
+
