@@ -2,7 +2,9 @@ import galleryItems from "./gallery-items.js";
 
 const ref = {
     gallery: document.querySelector('.js-gallery'),
-    largeImage: document.querySelector('.lightbox__image')
+    largeImage: document.querySelector('.lightbox__image'),
+    lightBox: document.querySelector('.lightbox'),
+    clotheButton: document.querySelector('.lightbox__button')
 
 };
 
@@ -42,11 +44,19 @@ const onGalleryClick = function (event) {
         return;
     }
 
+    // Подмена значения атрибута src элемента img.lightbox__image
+
     const largeImageURL = imageRef.dataset.source;
 
+
     setLargeImageURL(largeImageURL);
+
+    // Открытие модального окна по клику на элементе галереи
+
+    ref.lightBox.classList.add('is-open');
 
 };
 
 ref.gallery.addEventListener('click', onGalleryClick);
+
 
