@@ -42,8 +42,7 @@ const setLargeImageURL = (url) => ref.largeImage.src = url;
 
 const closeModal = function () {
     window.removeEventListener('keydown', onPressEscape);
-    window.removeEventListener('keydown', onPressArray);
-
+    
     ref.lightBox.classList.remove('is-open');
 
     //Очистка значения атрибута src элемента img.lightbox__image
@@ -51,7 +50,6 @@ const closeModal = function () {
 
 };
 
-// const largeImageArray = document.querySelectorAll('[data-index]');
 
 const onPressEscape = function (event) {
     if (event.code === 'Escape') {
@@ -59,17 +57,18 @@ const onPressEscape = function (event) {
     }
 };
 
-const onPressArray = function (event) {
-if (event.code === 'ArrowLeft') {
-         console.log('Left!');
-           
-        };
+// const onPressArray = function (event) {
+// if (event.code === 'ArrowLeft') {
+//     console.log('Left!');
+    
 
-        if (event.code === 'ArrowRight') {
-            console.log('Right!');
-        };
+//         };
 
-};
+//         if (event.code === 'ArrowRight') {
+//             console.log('Right!');
+//         };
+
+// };
 
 const openModal = function () {
 
@@ -78,8 +77,41 @@ const openModal = function () {
 //Закрытие модального окна по нажатию клавиши ESC
     window.addEventListener('keydown', onPressEscape);
 
+//получаем индекс активного изображения
+    const activeIndex = Number(event.target.dataset.index);
+    console.log(activeIndex);
+
+    let index = activeIndex;
+
+    const refImageArray = document.querySelectorAll('.gallery__image');
+
+    console.log(refImageArray);
+
 //Переключатель больших изображений
-    window.addEventListener('keydown', onPressArray);
+    window.addEventListener('keydown', event => {
+
+        if (event.code === 'ArrowLeft') {
+            index -= 1;
+            
+            if (index < 0) {
+                index = 0
+            };
+            
+            ref.largeImage.src = refImageArray[index].dataset.source;
+
+        };
+
+        if (event.code === 'ArrowRight') {
+            index += 1;
+
+            if (index > refImageArray.length -1) {
+                index = refImageArray.length - 1;
+            }
+            
+            ref.largeImage.src = refImageArray[index].dataset.source;
+        };
+
+    });
     
 };
 
