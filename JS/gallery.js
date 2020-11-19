@@ -67,8 +67,7 @@ const openModal = function () {
 
 //получаем индекс активного изображения
     const activeIndex = Number(event.target.dataset.index);
-    console.log(activeIndex);
-
+   
     let index = activeIndex;
 
     const refImageArray = document.querySelectorAll('.gallery__image');
