@@ -42,7 +42,6 @@ const setLargeImageURL = (url) => ref.largeImage.src = url;
 
 const closeModal = function () {
     window.removeEventListener('keydown', onPressEscape);
-    
     ref.lightBox.classList.remove('is-open');
 
     //Очистка значения атрибута src элемента img.lightbox__image
@@ -74,7 +73,6 @@ const openModal = function () {
 
     const refImageArray = document.querySelectorAll('.gallery__image');
 
-    console.log(refImageArray);
 
 //Переключатель больших изображений
     window.addEventListener('keydown', event => {
