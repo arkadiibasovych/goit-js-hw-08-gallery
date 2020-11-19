@@ -42,7 +42,6 @@ const setLargeImageURL = (url) => ref.largeImage.src = url;
 
 const closeModal = function () {
     window.removeEventListener('keydown', onPressEscape);
-    window.removeEventListener('keydown', onPressArrow);
     
     ref.lightBox.classList.remove('is-open');
 
@@ -58,28 +57,7 @@ const onPressEscape = function (event) {
     }
 };
 
-const onPressArrow = function (event) {
-if (event.code === 'ArrowLeft') {
-            index -= 1;
-            
-            if (index < 0) {
-                index = 0
-            };
-            
-            ref.largeImage.src = refImageArray[index].dataset.source;
 
-        };
-
-        if (event.code === 'ArrowRight') {
-            index += 1;
-
-            if (index > refImageArray.length -1) {
-                index = refImageArray.length - 1;
-            }
-            
-            ref.largeImage.src = refImageArray[index].dataset.source;
-        };
-}
 
 const openModal = function () {
 
@@ -99,7 +77,28 @@ const openModal = function () {
     console.log(refImageArray);
 
 //Переключатель больших изображений
-    window.addEventListener('keydown', onPressArrow);
+    window.addEventListener('keydown', event => {
+        if (event.code === 'ArrowLeft') {
+            index -= 1;
+            
+            if (index < 0) {
+                index = 0
+            };
+            
+            ref.largeImage.src = refImageArray[index].dataset.source;
+
+        };
+
+        if (event.code === 'ArrowRight') {
+            index += 1;
+
+            if (index > refImageArray.length -1) {
+                index = refImageArray.length - 1;
+            }
+            
+            ref.largeImage.src = refImageArray[index].dataset.source;
+        };
+    });
     
 };
 
