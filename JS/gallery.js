@@ -79,7 +79,7 @@ const openModal = function () {
             index -= 1;
             
             if (index < 0) {
-                index = 0
+               index = refImageArray.length - 1;
             };
             
             ref.largeImage.src = refImageArray[index].dataset.source;
@@ -90,7 +90,7 @@ const openModal = function () {
             index += 1;
 
             if (index > refImageArray.length -1) {
-                index = refImageArray.length - 1;
+                index = 0;
             }
             
             ref.largeImage.src = refImageArray[index].dataset.source;
